@@ -13,6 +13,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactUsRouteRouteImport } from './routes/contact-us/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ContactUsCountryRouteRouteImport } from './routes/contact-us/$country/route'
+import { Route as publicSearchRouteRouteImport } from './routes/(public)/search/route'
 import { Route as publicCategoriesRouteRouteImport } from './routes/(public)/categories/route'
 import { Route as publicCategoriesCategoryIdRouteRouteImport } from './routes/(public)/categories/$categoryId/route'
 import { Route as ContactUsCountryCityIndexRouteImport } from './routes/contact-us/$country/$city/index'
@@ -38,6 +39,11 @@ const ContactUsCountryRouteRoute = ContactUsCountryRouteRouteImport.update({
   id: '/$country',
   path: '/$country',
   getParentRoute: () => ContactUsRouteRoute,
+} as any)
+const publicSearchRouteRoute = publicSearchRouteRouteImport.update({
+  id: '/(public)/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const publicCategoriesRouteRoute = publicCategoriesRouteRouteImport.update({
   id: '/(public)/categories',
@@ -74,6 +80,7 @@ export interface FileRoutesByFullPath {
   '/contact-us': typeof ContactUsRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/categories': typeof publicCategoriesRouteRouteWithChildren
+  '/search': typeof publicSearchRouteRoute
   '/contact-us/$country': typeof ContactUsCountryRouteRouteWithChildren
   '/categories/$categoryId': typeof publicCategoriesCategoryIdRouteRouteWithChildren
   '/categories/$categoryId/$subcategoryId': typeof publicCategoriesCategoryIdSubcategoryIdRouteRouteWithChildren
@@ -85,6 +92,7 @@ export interface FileRoutesByTo {
   '/contact-us': typeof ContactUsRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/categories': typeof publicCategoriesRouteRouteWithChildren
+  '/search': typeof publicSearchRouteRoute
   '/contact-us/$country': typeof ContactUsCountryRouteRouteWithChildren
   '/categories/$categoryId': typeof publicCategoriesCategoryIdRouteRouteWithChildren
   '/categories/$categoryId/$subcategoryId': typeof publicCategoriesCategoryIdSubcategoryIdRouteRouteWithChildren
@@ -97,6 +105,7 @@ export interface FileRoutesById {
   '/contact-us': typeof ContactUsRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/(public)/categories': typeof publicCategoriesRouteRouteWithChildren
+  '/(public)/search': typeof publicSearchRouteRoute
   '/contact-us/$country': typeof ContactUsCountryRouteRouteWithChildren
   '/(public)/categories/$categoryId': typeof publicCategoriesCategoryIdRouteRouteWithChildren
   '/(public)/categories/$categoryId/$subcategoryId': typeof publicCategoriesCategoryIdSubcategoryIdRouteRouteWithChildren
@@ -110,6 +119,7 @@ export interface FileRouteTypes {
     | '/contact-us'
     | '/about'
     | '/categories'
+    | '/search'
     | '/contact-us/$country'
     | '/categories/$categoryId'
     | '/categories/$categoryId/$subcategoryId'
@@ -121,6 +131,7 @@ export interface FileRouteTypes {
     | '/contact-us'
     | '/about'
     | '/categories'
+    | '/search'
     | '/contact-us/$country'
     | '/categories/$categoryId'
     | '/categories/$categoryId/$subcategoryId'
@@ -132,6 +143,7 @@ export interface FileRouteTypes {
     | '/contact-us'
     | '/about'
     | '/(public)/categories'
+    | '/(public)/search'
     | '/contact-us/$country'
     | '/(public)/categories/$categoryId'
     | '/(public)/categories/$categoryId/$subcategoryId'
@@ -144,6 +156,7 @@ export interface RootRouteChildren {
   ContactUsRouteRoute: typeof ContactUsRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   publicCategoriesRouteRoute: typeof publicCategoriesRouteRouteWithChildren
+  publicSearchRouteRoute: typeof publicSearchRouteRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -175,6 +188,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/contact-us/$country'
       preLoaderRoute: typeof ContactUsCountryRouteRouteImport
       parentRoute: typeof ContactUsRouteRoute
+    }
+    '/(public)/search': {
+      id: '/(public)/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof publicSearchRouteRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/(public)/categories': {
       id: '/(public)/categories'
@@ -288,6 +308,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactUsRouteRoute: ContactUsRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   publicCategoriesRouteRoute: publicCategoriesRouteRouteWithChildren,
+  publicSearchRouteRoute: publicSearchRouteRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

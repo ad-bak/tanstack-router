@@ -16,6 +16,7 @@ function RootComponent() {
         <NavLink to="/about">About Page</NavLink>
         <NavLink to="/contact-us">Contact Us</NavLink>
         <NavLink to="/categories">Categories</NavLink>
+        <NavLink to="/search">Search (No Results)</NavLink>
       </div>
       <Outlet />
       <TanStackRouterDevtools />
